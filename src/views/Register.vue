@@ -1,41 +1,47 @@
 <template>
-    <v-form
-    ref="form"
-    v-model="valid"
-    lazy-validation
-  >
-    <v-text-field
-      v-model="name"
-      :counter="10"
-      :rules="nameRules"
-      label="Name"
-      required
-    ></v-text-field>
+<v-card 
+ class="pa-6 mx-auto mt-16"
+ max-width="600px">
+  <v-card-title class="pink--text text--darken-4">Music Practice Tracker</v-card-title>
+  <v-card-text>
+      <v-form
+        ref="form"
+        v-model="valid"
+        lazy-validation
+      >
+        <v-text-field
+        v-model="name"
+        :counter="10"
+        :rules="nameRules"
+        label="Name"
+        required
+        ></v-text-field>
 
-    <v-text-field
-      v-model="email"
-      :rules="emailRules"
-      label="E-mail"
-      required
-    ></v-text-field>
+        <v-text-field
+        v-model="email"
+        :rules="emailRules"
+        label="E-mail"
+        required
+        ></v-text-field>
 
-    <v-text-field
-      v-model="password"
-      :counter="8"
-      :rules="passwordRules"
-      label="Password"
-      required
-    ></v-text-field>
+        <v-text-field
+        v-model="password"
+        :counter="8"
+        :rules="passwordRules"
+        label="Password"
+        required
+        ></v-text-field>
 
-    <v-btn
-      :disabled="!valid"
-      color="teal darken-2 white--text"
-      @click="validate"
-    >
-      REGISTER
-    </v-btn>
-
-  </v-form>
+        <v-btn
+        :disabled="!valid"
+        color="teal darken-2 white--text"
+        @click="validate"
+        >
+        REGISTER
+        </v-btn>
+      </v-form>
+  </v-card-text>
+</v-card>
 </template>
 
 <script>
