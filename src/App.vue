@@ -1,5 +1,7 @@
 <template>
   <v-app>
+    <navbar @open:sidebar="drawer = true"></navbar>
+    <sidebar @close:sidebar="drawer = $event" :drawer="drawer"></sidebar>
     <v-main>
       <router-view/>
     </v-main>
@@ -7,12 +9,16 @@
 </template>
 
 <script>
+import Navbar from './components/Navbar.vue';
+import Sidebar from './components/Sidebar.vue';
+
 
 export default {
+  components: { Navbar, Sidebar },
   name: 'App',
 
   data: () => ({
-    //
+    drawer: false,
   }),
 };
 </script>
