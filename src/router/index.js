@@ -10,6 +10,12 @@ const routes = [
     meta: {layout: 'main'},
     component: () => import('../views/Songs.vue') 
   },
+  {
+    path: '/register',
+    name: 'Register',
+    meta: {layout: 'empty'},
+    component: () => import('../views/Register.vue') 
+  },
 ]
 
 const router = new VueRouter({
