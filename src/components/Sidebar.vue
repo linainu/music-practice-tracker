@@ -15,6 +15,7 @@
           <v-list-item 
             v-for="(item, i) in items"
             :key="i"
+            :to="item.link"
           >
             <v-list-item-icon>
               <v-icon v-text="item.icon"></v-icon>
@@ -35,9 +36,9 @@ export default {
   data: () => ({
     group: 0,
     items: [
-        {text: 'Songs', icon: 'mdi-music'},
-        {text: 'Playlists', icon: 'mdi-folder-music'},
-        {text: 'Account', icon: 'mdi-account'}]
+        {text: 'Songs', icon: 'mdi-music', link: '/'},
+        {text: 'Playlists', icon: 'mdi-folder-music', link: '/playlists'},
+        {text: 'Account', icon: 'mdi-account', link: '/account'}]
   }),
   computed: {
       localDrawer: {
