@@ -7,6 +7,7 @@ const routes = [
   {
     path: '/',
     name: 'Songs',
+    meta: {layout: 'main'},
     component: () => import('../views/Songs.vue') 
   },
 ]

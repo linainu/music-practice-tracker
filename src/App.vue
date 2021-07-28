@@ -1,24 +1,22 @@
 <template>
-  <v-app>
-    <navbar @open:sidebar="drawer = true"></navbar>
-    <sidebar @close:sidebar="drawer = $event" :drawer="drawer"></sidebar>
-    <v-main>
-      <router-view/>
-    </v-main>
-  </v-app>
+  <component :is="layout">
+      <router-view />
+  </component>
 </template>
 
-<script>
-import Navbar from './components/Navbar.vue';
-import Sidebar from './components/Sidebar.vue';
 
+<script>
+import EmptyLayout from '@/layouts/EmptyLayout'
+import MainLayout from '@/layouts/MainLayout'
 
 export default {
-  components: { Navbar, Sidebar },
-  name: 'App',
-
-  data: () => ({
-    drawer: false,
-  }),
-};
+  computed: {
+    layout() {
+      return (this.$route.meta.layout || 'Empty') + 'Layout'
+    }
+  },
+  components: {
+    EmptyLayout, MainLayout
+  }
+}
 </script>
