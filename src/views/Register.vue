@@ -26,9 +26,12 @@
 
         <v-text-field
         v-model="password"
-        :counter="8"
-        :rules="passwordRules"
+        :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
+        :type="showPassword ? 'text' : 'password'"
         label="Password"
+        :rules="passwordRules"
+        counter
+        @click:append="showPassword = !showPassword"
         required
         ></v-text-field>
 
@@ -49,6 +52,7 @@ export default {
     data: () => ({
       valid: true,
       name: '',
+      showPassword: false,
       nameRules: [
         v => !!v || 'Name is required',
         v => (v && v.length <= 10) || 'Name must be less than 10 characters',

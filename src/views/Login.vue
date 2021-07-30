@@ -18,8 +18,11 @@
 
         <v-text-field
         v-model="password"
+        :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
+        :type="showPassword ? 'text' : 'password'"
         label="Password"
         :rules="passwordRules"
+        @click:append="showPassword = !showPassword"
         required
         ></v-text-field>
 
@@ -39,6 +42,7 @@
 export default {
     data: () => ({
       valid: true,
+      showPassword: false,
       email: '',
       emailRules: [
         v => !!v || 'E-mail is required',
