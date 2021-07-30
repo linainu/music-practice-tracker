@@ -7,7 +7,9 @@ export default {
             try {
                 await firebase.auth().signInWithEmailAndPassword(email, password)
             } catch(e) {
+              commit('setError', e)
               console.log(e)
+              throw e
             }
         },
         async logout({commit}) {
@@ -20,7 +22,9 @@ export default {
                 const uid = await dispatch('getUid')
                 await db.collection('users').doc(uid).set({name})
             } catch(e) { 
+               commit('setError', e)
                console.log(e)
+               throw e
             }
         },
         getUid() {
