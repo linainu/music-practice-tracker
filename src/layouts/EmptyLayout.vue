@@ -1,6 +1,12 @@
 <template>
     <v-app>
         <v-main>
+            <v-snackbar
+              v-model="snackbar"
+              :timeout="timeout"
+            >
+            {{ errorText }}
+            </v-snackbar>
             <router-view></router-view>
         </v-main>
     </v-app>
@@ -8,6 +14,27 @@
 
 <script>
 export default {
-    name: 'EmptyLayout'
+    name: 'EmptyLayout',
+    data: () => ({
+      timeout: 5000,
+      snackbar: false,
+    }),
+    computed: {
+      error() {
+        return this.$store.getters.error
+      },
+
+      errorText() {
+          if (this.error != undefined) {
+              return this.error.message
+          }
+      }
+    },
+
+    watch: {
+      error() {
+        this.snackbar = true
+      }
+  },
 }
 </script>
