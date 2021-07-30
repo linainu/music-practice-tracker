@@ -50,8 +50,20 @@ export default {
     }),
 
     methods: {
-      validate () {
-        this.$refs.form.validate()
+      async validate () {
+        if (this.$refs.form.validate()) {
+
+          const formData = {
+            email: this.email,
+            password: this.password
+          }
+          try {
+            await this.$store.dispatch('login', formData)
+            this.$router.push('/')
+          } catch (e) {
+            
+          }
+        }
       },
     },
   }
