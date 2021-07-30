@@ -8,22 +8,19 @@ export default {
                 await firebase.auth().signInWithEmailAndPassword(email, password)
             } catch(e) {
               commit('setError', e)
-              console.log(e)
               throw e
             }
         },
         async logout({commit}) {
             await firebase.auth().signOut()
         },
-        // регистрация пользователя
         async register({dispatch, commit}, {email, password, name}) {
             try {
                 await firebase.auth().createUserWithEmailAndPassword(email, password)
                 const uid = await dispatch('getUid')
                 await db.collection('users').doc(uid).set({name})
-            } catch(e) { 
+            } catch(e) {
                commit('setError', e)
-               console.log(e)
                throw e
             }
         },
