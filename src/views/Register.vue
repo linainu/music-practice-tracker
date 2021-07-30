@@ -9,6 +9,13 @@
         v-model="valid"
         lazy-validation
       >
+        <v-text-field
+          v-model="name"
+          :counter="10"
+          :rules="nameRules"
+          label="Name"
+          required
+        ></v-text-field>
 
         <v-text-field
         v-model="email"
@@ -41,6 +48,11 @@
 export default {
     data: () => ({
       valid: true,
+      name: '',
+      nameRules: [
+        v => !!v || 'Name is required',
+        v => (v && v.length <= 10) || 'Name must be less than 10 characters',
+      ],
       email: '',
       emailRules: [
         v => !!v || 'E-mail is required',
@@ -56,18 +68,18 @@ export default {
     methods: {
       async validate () {
           if(this.$refs.form.validate()) {
-                const formData = {
-                    email: this.email,
-                    password: this.password,
-                    name: this.name
-                }
+            const formData = {
+                email: this.email,
+                password: this.password,
+                name: this.name
+            }
 
-                try {
-                    await this.$store.dispatch('register', formData)
-                    this.$router.push('/')
-                } catch (e) {
-                    // console.log(e)
-                }
+            try {
+                await this.$store.dispatch('register', formData)
+                this.$router.push('/')
+            } catch (e) {
+                // console.log(e)
+            }
           }
         
       },
