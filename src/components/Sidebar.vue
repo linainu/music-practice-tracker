@@ -22,6 +22,13 @@
             </v-list-item-icon>
             <v-list-item-title v-text="item.text"></v-list-item-title>
           </v-list-item>
+
+          <v-list-item @click="logout">
+            <v-list-item-icon>
+              <v-icon>mdi-logout</v-icon>
+            </v-list-item-icon>
+            <v-list-item-title>Log Out</v-list-item-title>
+          </v-list-item>
         </v-list-item-group>
       </v-list>
     </v-navigation-drawer>      
@@ -38,7 +45,8 @@ export default {
     items: [
         {text: 'Songs', icon: 'mdi-music', link: '/'},
         {text: 'Playlists', icon: 'mdi-folder-music', link: '/playlists'},
-        {text: 'Account', icon: 'mdi-account', link: '/account'}]
+        {text: 'Account', icon: 'mdi-account', link: '/account'},
+        ]
   }),
   computed: {
       localDrawer: {
@@ -50,6 +58,12 @@ export default {
               this.$emit('close:sidebar', newValue)
           }
       }
+  },
+  methods: {
+    async logout() {
+      await this.$store.dispatch('logout')
+      this.$router.push('/login?message=logout')
+    }
   }
 };
 </script>
