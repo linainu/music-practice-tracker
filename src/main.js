@@ -3,6 +3,7 @@ import App from './App.vue'
 import router from './router'
 import store from './store'
 import vuetify from './plugins/vuetify'
+import firebase from 'firebase/app'
 
 import dateFilter from '@/filters/date.filter'
 
@@ -11,7 +12,7 @@ Vue.filter('date', dateFilter)
 Vue.config.productionTip = false
 
 let app
-import firebase from 'firebase/app'
+
 
 firebase.auth().onAuthStateChanged(() => {
   if (!app) {
