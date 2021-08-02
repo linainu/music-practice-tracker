@@ -17,6 +17,7 @@
           <th class="text-left">
             Last Practiced
           </th>
+          <th></th>
           <!-- <th class="text-left">
             Link
           </th> -->
@@ -42,7 +43,18 @@
               @change="changeStatus($event, song.id)"
             ></v-select>
           </td>
-          <td>{{ song.creation_date | date }}</td>
+          <td>{{ song.last_practiced | date }}</td>
+          <td>
+            <v-btn
+            text
+            icon
+            large
+            color="teal darken-2"
+            @click="updateLastPracticedDate(song.id)"
+            >
+            <v-icon>mdi-update</v-icon>
+              </v-btn> 
+            </td>
         </tr>
       </tbody>
     </template>
@@ -72,6 +84,12 @@
     methods: {
       async changeStatus(status, id) {
         await this.$store.dispatch('changeStatus', {id, status})
+      },
+      async updateLastPracticedDate(id) {
+        const date = new Date()
+        const idx = this.songs.findIndex(el => el.id == id)
+        this.songs[idx].last_practiced = date
+        await this.$store.dispatch('updateLastPracticedDate', {id, date})
       }
     }
   }

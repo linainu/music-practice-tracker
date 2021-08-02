@@ -19,7 +19,7 @@ export default {
                     data.artist = doc.data().artist
                     data.title = doc.data().title
                     data.status = doc.data().status
-                    data.creation_date = doc.data().creation_date.toDate()
+                    data.last_practiced = doc.data().last_practiced.toDate()
                     res.push(data)
                 })
                 
@@ -34,6 +34,15 @@ export default {
             try {
                 const uid = await dispatch('getUid')
                 await db.collection('users').doc(uid).collection('songs').doc(id).update({status})
+            } catch (e) {
+                commit('setError', e)
+                throw e
+            }
+        },
+        async updateLastPracticedDate({commit, dispatch}, {id, date}) {
+            try {
+                const uid = await dispatch('getUid')
+                await db.collection('users').doc(uid).collection('songs').doc(id).update({last_practiced: date})
             } catch (e) {
                 commit('setError', e)
                 throw e
