@@ -64,15 +64,13 @@
 
 <script>
   export default {
+    props: {
+      statuses: Array,
+      newSongId: String
+    },
     data: () => ({
       songs: [],
       select: null,
-      statuses: [
-        {text: 'Want to Learn', value: 'WL', color: "red lighten-1"}, 
-        {text: 'In Progress', value: 'IP', color: "yellow lighten-1"},
-        {text: 'Kind of Know', value: 'KK', color: "yellow lighten-1"},
-        {text: 'Learned', value: 'L', color: "green lighten-1"}
-      ],
       loading: true
     }),
 
@@ -90,6 +88,13 @@
         const idx = this.songs.findIndex(el => el.id == id)
         this.songs[idx].last_practiced = date
         await this.$store.dispatch('updateLastPracticedDate', {id, date})
+      }
+    },
+
+    watch: {
+      async newSongId(id) {
+        const song = await this.$store.dispatch('fetchSongById', id)
+        this.songs.unshift(song)
       }
     }
   }
