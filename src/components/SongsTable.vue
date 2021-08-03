@@ -39,7 +39,7 @@
               label="Status"
               solo
               dense
-              class="select-status"
+              class="select-status pt-7"
               @change="changeStatus($event, song.id)"
             ></v-select>
           </td>
@@ -97,7 +97,7 @@
 
 <style scoped>
 .select-status {
-  width: 180px;
+  width: 150px;
   font-size: 0.875rem;
 }
 
