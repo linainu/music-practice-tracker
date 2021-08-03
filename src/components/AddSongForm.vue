@@ -116,8 +116,10 @@
 
           try {
             const id = await this.$store.dispatch('createSong', formData)
+            this.$refs.form.reset()
             this.dialog = false
             this.$emit('addSong', id)
+            
           } catch(e) {
 
           }
