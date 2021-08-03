@@ -9,12 +9,25 @@
        md="8"
        offset-md="2"
       >
-      <div class="page-ttl mb-3">
+      <div class="pl-3 mb-3">
         <h1>Songs</h1>
       </div>
-        <songs-table></songs-table>
-      </v-col>
-    </v-row> 
+      <songs-table></songs-table>
+      <div class="text-center">
+        <v-btn
+          class="mx-2"
+          fab
+          dark
+          color="teal darken-2"
+        >
+        <v-icon dark>
+          mdi-plus
+        </v-icon>
+        </v-btn>
+      </div>
+    
+    </v-col>
+    </v-row>
   </v-container>
 </template>
 
