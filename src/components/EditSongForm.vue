@@ -52,16 +52,16 @@
         <v-card-actions>
           <v-spacer></v-spacer>
           <v-btn
-            color="red lighten-1"
+            color="blue darken-2"
             text
             @click="dialog = false"
           >
-            Close
+            Cancel
           </v-btn>
           <v-btn
             color="teal darken-2"
             text
-            :disabled="!valid || !changed"
+            :disabled="!valid"
             @click="validate"
           >
             Save
@@ -85,7 +85,6 @@
       title: '',
       artist: '',
       status: null,
-      // changed: false,
       titleRules: [
         v => !!v || 'Title is required',
       ],
@@ -95,19 +94,6 @@
       
     }),
     computed: {
-      changed() {
-        if (this.song !== null) {
-          console.log(this.song)
-          console.log(this.artist, this.title, this.status)
-
-          if (this.artist !== this.song.artist ||
-          this.title !== this.song.title ||
-          this.status !== this.song.status) {
-            return true
-          }
-          return false
-        }
-      },
       songTitle() {
         if (this.song !== null) {
           return this.song.title

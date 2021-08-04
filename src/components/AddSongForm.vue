@@ -10,6 +10,7 @@
                 color="teal darken-2 fixed-button"
                 dark
                 fab
+                large
                 :style="{left: '50%', transform:'translateX(-50%)'}"
                 v-bind="attrs"
                 v-on="on"
@@ -49,7 +50,7 @@
                 sm="6"
               >
                 <v-select
-                  v-model="select"
+                  v-model="status"
                   :items="statuses"
                   item-text="text"
                   item-value="value"
@@ -66,17 +67,18 @@
         <v-card-actions>
           <v-spacer></v-spacer>
           <v-btn
-            color="red lighten-1"
+            color="blue darken-2"
             text
             @click="dialog = false"
           >
-            Close
+            Cancel
           </v-btn>
           <v-btn
             color="teal darken-2"
             text
             :disabled="!valid"
             @click="validate"
+            
           >
             ADD
           </v-btn>
@@ -96,7 +98,7 @@
       dialog: false,
       title: '',
       artist: '',
-      select: null,
+      status: null,
       titleRules: [
         v => !!v || 'Title is required',
       ],
@@ -112,7 +114,7 @@
           const formData = {
             title: this.title,
             artist: this.artist,
-            status: this.select
+            status: this.status
           }
 
           try {
@@ -125,7 +127,7 @@
 
           }
         }
-      }
+      },
     }
   }
 </script>

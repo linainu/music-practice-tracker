@@ -1,7 +1,37 @@
 <template>
 <v-container>
    <div v-if="loading">Loading...</div>
-    <v-simple-table v-else>
+   <div v-else>
+    <div class="text-end mb-5">
+    <v-menu offset-y>
+      <template v-slot:activator="{ on, attrs }">
+        <v-btn
+          color="teal darken-2"
+          text
+          v-bind="attrs"
+          v-on="on"
+        >
+        <v-icon
+          dark
+          left
+        >
+          mdi-arrow-up-down
+        </v-icon>
+        Sort
+        
+        </v-btn>
+      </template>
+      <v-list>
+        <v-list-item
+          v-for="(item, index) in items"
+          :key="index"
+        >
+          <v-list-item-title>{{ item.title }}</v-list-item-title>
+        </v-list-item>
+      </v-list>
+    </v-menu>
+    </div>
+    <v-simple-table>
     <template v-slot:default>
       <thead>
         <tr>
@@ -50,7 +80,7 @@
               label="Status"
               solo
               dense
-              class="select-status pt-7"
+              class="select-status"
               @change="changeStatus($event, song.id)"
             ></v-select>
           </td>
@@ -70,7 +100,8 @@
       </tbody>
     </template>
   </v-simple-table>
-  </v-container>
+  </div>
+</v-container>
 </template>
 
 <script>
@@ -83,7 +114,13 @@
     data: () => ({
       songs: [],
       select: null,
-      loading: true
+      loading: true,
+      items: [
+        { title: 'Sort alphabetically', icon: ''},
+        { title: 'Sort by last practiced date' },
+        { title: 'Sort by' },
+        { title: 'Click Me 2' },
+      ],
     }),
 
     async mounted() {
@@ -115,13 +152,24 @@
         const song = await this.$store.dispatch('fetchSongById', id)
         this.songs.unshift(song)
       }
-    }
+    },
   }
 </script>
 
-<style scoped>
+<style>
 .select-status {
-  width: 150px;
+  width: 200px;
   font-size: 0.875rem;
 }
+
+td {
+  padding: 8px 12px !important;
+}
+
+.v-input__control {
+  flex-direction: row !important;
+  flex-wrap: nowrap !important;
+}
+
+
 </style>
