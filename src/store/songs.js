@@ -74,6 +74,33 @@ export default {
             } catch (e) {
                 commit('setError', e)
             }
-        }, 
+        },
+        async updateSongTitle({commit, dispatch}, {id, title}) {
+            try {
+                const uid = await dispatch('getUid')
+                await db.collection('users').doc(uid).collection('songs').doc(id).update({title})
+            } catch (e) {
+                commit('setError', e)
+                throw e
+            }
+        },
+        async updateSongArtist({commit, dispatch}, {id, artist}) {
+            try {
+                const uid = await dispatch('getUid')
+                await db.collection('users').doc(uid).collection('songs').doc(id).update({artist})
+            } catch (e) {
+                commit('setError', e)
+                throw e
+            }
+        },
+        async updateSongStatus({commit, dispatch}, {id, status}) {
+            try {
+                const uid = await dispatch('getUid')
+                await db.collection('users').doc(uid).collection('songs').doc(id).update({status})
+            } catch (e) {
+                commit('setError', e)
+                throw e
+            }
+        },
     }
 }

@@ -29,7 +29,7 @@
           :key="song.id"
         >
           <td>{{ song.artist }}</td>
-          <td><a href="#">{{ song.title }}</a></td>
+          <td><a href="#" @click.prevent="$emit('openSong', song)">{{ song.title }}</a></td>
           <td>
             <v-select
               v-model="song.status"
@@ -63,6 +63,7 @@
 </template>
 
 <script>
+
   export default {
     props: {
       statuses: Array,
