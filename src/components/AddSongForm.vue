@@ -7,9 +7,10 @@
       <template v-slot:activator="{ on, attrs }">
             <v-fab-transition>
               <v-btn
-                color="teal darken-2"
+                color="teal darken-2 fixed-button"
                 dark
                 fab
+                :style="{left: '50%', transform:'translateX(-50%)'}"
                 v-bind="attrs"
                 v-on="on"
               >
@@ -128,3 +129,11 @@
     }
   }
 </script>
+
+<style scoped>
+.fixed-button {
+  position: fixed;
+  bottom: 20px;
+  right: 0;
+}
+</style>

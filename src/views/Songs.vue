@@ -9,9 +9,7 @@
         <h1>Songs</h1>
       </div>
       <songs-table :statuses=statuses :newSongId=newSongId @openSong="onOpenSong"></songs-table>
-      <div class="text-center">
-        <add-song-form :statuses=statuses @addSong="onAddSong"></add-song-form>
-      </div>
+      <add-song-form :statuses=statuses @addSong="onAddSong"></add-song-form>
     </v-col>
     </v-row>
 
