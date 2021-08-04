@@ -5,6 +5,7 @@
     <template v-slot:default>
       <thead>
         <tr>
+          <th></th>
           <th class="text-left">
             Artist
           </th>
@@ -28,6 +29,16 @@
           v-for="song in songs"
           :key="song.id"
         >
+          <td>
+            <v-btn
+              icon
+              class="text--lighten-1"
+              :class="{'red--text': song.favorite, 'grey--text': !song.favorite}"
+              @click="favorite(song.id)"
+            >
+              <v-icon>mdi-heart</v-icon>
+            </v-btn>
+          </td>
           <td>{{ song.artist }}</td>
           <td><a href="#" @click.prevent="$emit('openSong', song)">{{ song.title }}</a></td>
           <td>
@@ -89,6 +100,13 @@
         const idx = this.songs.findIndex(el => el.id == id)
         this.songs[idx].last_practiced = date
         await this.$store.dispatch('updateLastPracticedDate', {id, date})
+      },
+      async favorite(id) {
+        const idx = this.songs.findIndex(el => el.id == id)
+        this.songs[idx].favorite = !this.songs[idx].favorite
+        const favorite = this.songs[idx].favorite
+        await this.$store.dispatch('updateFavorite', {id, favorite})
+
       }
     },
 
@@ -106,6 +124,4 @@
   width: 150px;
   font-size: 0.875rem;
 }
-
-
 </style>

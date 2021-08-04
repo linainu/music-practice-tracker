@@ -2,8 +2,8 @@
   <v-container>
     <v-row no-gutters justify="center">
       <v-col
-       lg="6"
-       md="8"
+       lg="8"
+       md="10"
       >
       <div class="pl-3 mb-3">
         <h1>Songs</h1>

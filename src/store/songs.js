@@ -19,12 +19,13 @@ export default {
                     data.artist = doc.data().artist
                     data.title = doc.data().title
                     data.status = doc.data().status
+                    data.favorite = doc.data().favorite || false
                     data.last_practiced = doc.data().last_practiced ? doc.data().last_practiced.toDate() : null
                     res.push(data)
                 })
-                
+        
                 return res
-                
+
             } catch (e) {
                 commit('setError', e)
                 throw e
@@ -102,5 +103,14 @@ export default {
                 throw e
             }
         },
-    }
+        async updateFavorite({commit, dispatch}, {id, favorite}) {
+            try {
+                const uid = await dispatch('getUid')
+                await db.collection('users').doc(uid).collection('songs').doc(id).update({favorite})
+            } catch (e) {
+                commit('setError', e)
+                throw e
+            }
+        },
+    },
 }
