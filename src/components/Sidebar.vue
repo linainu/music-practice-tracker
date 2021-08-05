@@ -44,8 +44,8 @@ export default {
     group: 0,
     items: [
         {text: 'Songs', icon: 'mdi-music', link: '/'},
-        {text: 'Playlists', icon: 'mdi-folder-music', link: '/playlists'},
-        {text: 'Account', icon: 'mdi-account', link: '/account'},
+        {text: 'Playlists', icon: 'mdi-folder-music-outline', link: '/playlists'},
+        {text: 'Account', icon: 'mdi-account-outline', link: '/account'},
         ]
   }),
   computed: {
@@ -65,5 +65,5 @@ export default {
       this.$router.push('/login?message=logout')
     }
   }
-};
+}
 </script>

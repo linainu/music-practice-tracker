@@ -20,6 +20,7 @@ export default {
                     data.title = doc.data().title
                     data.status = doc.data().status
                     data.favorite = doc.data().favorite || false
+                    data.creation_date = doc.data().creation_date.toDate()
                     data.last_practiced = doc.data().last_practiced ? doc.data().last_practiced.toDate() : null
                     res.push(data)
                 })

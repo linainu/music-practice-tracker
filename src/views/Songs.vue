@@ -27,10 +27,10 @@ import EditSongForm from '@/components/EditSongForm.vue';
     components: {SongsTable, AddSongForm, EditSongForm},
     data: () => ({
       statuses: [
-        {text: 'Want to Learn', value: 'WL', color: "red lighten-1"}, 
-        {text: 'In Progress', value: 'IP', color: "yellow lighten-1"},
-        {text: 'Kind of Know', value: 'KK', color: "yellow lighten-1"},
-        {text: 'Learned', value: 'L', color: "green lighten-1"}
+        {text: 'Want to Learn', value: 0, color: "red lighten-1"}, 
+        {text: 'In Progress', value: 1, color: "yellow lighten-1"},
+        {text: 'Kind of Know', value: 2, color: "yellow lighten-1"},
+        {text: 'Learned', value: 3, color: "green lighten-1"}
       ],
       newSongId: null,
       openedSong: null,

@@ -2,7 +2,7 @@
 <v-container>
    <div v-if="loading">Loading...</div>
    <div v-else>
-    <div class="text-end mb-5">
+    <div class="text-end mb-2">
     <v-menu offset-y>
       <template v-slot:activator="{ on, attrs }">
         <v-btn
@@ -18,19 +18,53 @@
           mdi-arrow-up-down
         </v-icon>
         Sort
-        
         </v-btn>
       </template>
-      <v-list>
+      <v-list dense>
+        <v-list-item-group
+        v-model="selectedSort"
+        color="teal darken-2"
+        >
         <v-list-item
-          v-for="(item, index) in items"
+          v-for="(item, index) in sortOptions"
           :key="index"
         >
-          <v-list-item-title>{{ item.title }}</v-list-item-title>
+          <v-list-item-icon>
+            <v-icon v-text="item.icon"></v-icon>
+          </v-list-item-icon>
+          <v-list-item-title v-text="item.title"></v-list-item-title>
         </v-list-item>
+        </v-list-item-group>
       </v-list>
     </v-menu>
     </div>
+
+    <v-row>
+    <v-col>
+    <div :class="{hide: !isSorted}" class="text-end">
+      <v-btn
+        text
+        icon
+        color="teal darken-2"
+        @click="changeOrder"
+      >
+        <v-icon>{{ arrow }}</v-icon>
+      </v-btn>
+      <v-chip
+      class="ma-2"
+      close
+      outlined
+      color="teal darken-2"
+      @click:close="close"
+    >
+      {{ sortTitle }}
+      </v-chip>
+    </div>
+    </v-col>
+    </v-row>
+    
+    
+
     <v-simple-table>
     <template v-slot:default>
       <thead>
@@ -49,9 +83,6 @@
             Last Practiced
           </th>
           <th></th>
-          <!-- <th class="text-left">
-            Link
-          </th> -->
         </tr>
       </thead>
       <tbody>
@@ -115,13 +146,25 @@
       songs: [],
       select: null,
       loading: true,
-      items: [
-        { title: 'Sort alphabetically', icon: ''},
-        { title: 'Sort by last practiced date' },
-        { title: 'Sort by' },
-        { title: 'Click Me 2' },
+      sortOptions: [
+        { title: 'Sort by artist', icon: 'mdi-account-music-outline', field: 'artist'},
+        { title: 'Sort by song title', icon: 'mdi-music-note', field: 'title'},
+        { title: 'Sort by last practiced date', icon: 'mdi-calendar', field: 'last_practiced'},
+        // { title: 'Sort by creation date', icon: 'mdi-calendar', field: 'çreation_date'},
+        { title: 'Sort by stage of learning', icon: 'mdi-chart-line', field: 'status'},
       ],
+      selectedSort: null,
+      isSorted: false,
+      ascOrder: true,
+      sortTitle: '',
+      soerField: '',
+      search: ''
     }),
+    computed: {
+      arrow() {
+        return this.ascOrder ? 'mdi-arrow-up' : 'mdi-arrow-down'
+      }
+    },
 
     async mounted() {
       this.songs = await this.$store.dispatch('fetchSongs')
@@ -144,6 +187,24 @@
         const favorite = this.songs[idx].favorite
         await this.$store.dispatch('updateFavorite', {id, favorite})
 
+      },
+      close() {
+        this.sortItems(this.songs, 'creation_date', false)
+        this.isSorted = false
+        this.selectedSort = null
+      },
+      sortItems(arr, field, order = true) {
+          arr.sort((a, b) => {
+            if (a[field] > b[field]) {
+              return order ? 1 : -1}
+            if (a[field] < b[field]) {
+              return order ? -1 : 1}
+            return 0
+          })
+      },
+      changeOrder() {
+        this.ascOrder = !this.ascOrder
+        this.sortItems(this.songs, this.sortField, this.ascOrder)
       }
     },
 
@@ -151,19 +212,27 @@
       async newSongId(id) {
         const song = await this.$store.dispatch('fetchSongById', id)
         this.songs.unshift(song)
-      }
+      },
+      selectedSort(idx) {
+        const sortOpt = this.sortOptions[idx]
+        this.sortTitle = sortOpt.title
+        this.sortField = sortOpt.field
+        this.sortItems(this.songs, this.sortField, this.ascOrder)
+        this.isSorted = true
+      },
+
+
     },
   }
 </script>
 
 <style>
 .select-status {
-  width: 200px;
-  font-size: 0.875rem;
+  width: 180px;
 }
 
 td {
-  padding: 8px 12px !important;
+  padding: 8px 16px !important;
 }
 
 .v-input__control {
@@ -171,5 +240,22 @@ td {
   flex-wrap: nowrap !important;
 }
 
+.hide {
+  visibility: hidden;
+}
+/* .v-list-item__title {
+  font-size: .85rem;
+  
+}
+.v-list-item__icon {
+ margin-right: 16px !important;
+} */
 
+/* .v-avatar--left {
+  margin-right: 0 !important;
+} */
+
+table .v-input {
+  font-size: 14px;
+}
 </style>
