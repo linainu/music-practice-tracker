@@ -2,7 +2,7 @@
 <v-container>
    <div v-if="loading">Loading...</div>
    <div v-else>
-    <div class="text-end mb-2">
+    
     
     <v-row>
       <v-col
@@ -32,6 +32,7 @@
     </v-text-field>
     </v-col>
     <v-col>
+      <div class="text-end mb-2">
       <v-menu offset-y>
       <template v-slot:activator="{ on, attrs }">
         <v-btn
@@ -66,11 +67,11 @@
         </v-list-item-group>
       </v-list>
     </v-menu>
+    </div>
     </v-col>
     </v-row>
     
-    </div>
-
+    <v-divider></v-divider>
     <v-row>
     
     <v-col>
@@ -171,7 +172,8 @@
   export default {
     props: {
       statuses: Array,
-      newSongId: String
+      newSongId: String,
+      deletedSongId: String
     },
     data: () => ({
       songs: [],
@@ -256,13 +258,16 @@
       selectedSort(idx) {
         if (idx !== null) {
           const sortOpt = this.sortOptions[idx]
-          console.log(sortOpt)
           this.sortTitle = sortOpt.title
           this.sortField = sortOpt.field
           this.sortItems(this.songs, this.sortField, this.ascOrder)
           this.isSorted = true
         }
       },
+      deletedSongId(id) {
+        const idx = this.songs.findIndex(el => el.id == id)
+        this.songs.splice(idx, 1)
+      }
 
 
     },

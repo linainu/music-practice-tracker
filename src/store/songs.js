@@ -113,5 +113,14 @@ export default {
                 throw e
             }
         },
+        async deleteSong({commit, dispatch}, id) {
+            try {
+                const uid = await dispatch('getUid')
+                await db.collection('users').doc(uid).collection('songs').doc(id).delete()
+            } catch (e) {
+                commit('setError', e)
+                throw e
+            }
+        }
     },
 }

@@ -8,12 +8,12 @@
       <div class="pl-3 mb-3">
         <h1>Songs</h1>
       </div>
-      <songs-table :statuses=statuses :newSongId=newSongId @openSong="onOpenSong"></songs-table>
+      <songs-table :statuses=statuses :newSongId=newSongId :deletedSongId="deletedSongId" @openSong="onOpenSong"></songs-table>
       <add-song-form :statuses=statuses @addSong="onAddSong"></add-song-form>
     </v-col>
     </v-row>
 
-    <edit-song-form :countOpen=countOpen :statuses=statuses :song=openedSong></edit-song-form>
+    <edit-song-form :countOpen=countOpen :statuses=statuses :song=openedSong @deleteSong="onDeleteSong"></edit-song-form>
   </v-container>
 </template>
 
@@ -27,13 +27,14 @@ import EditSongForm from '@/components/EditSongForm.vue';
     components: {SongsTable, AddSongForm, EditSongForm},
     data: () => ({
       statuses: [
-        {text: 'Want to Learn', value: 0, color: "red lighten-1"}, 
-        {text: 'In Progress', value: 1, color: "yellow lighten-1"},
-        {text: 'Kind of Know', value: 2, color: "yellow lighten-1"},
-        {text: 'Learned', value: 3, color: "green lighten-1"}
+        {text: 'Want to Learn', value: 1, color: "red lighten-1"}, 
+        {text: 'In Progress', value: 2, color: "yellow lighten-1"},
+        {text: 'Kind of Know', value: 3, color: "yellow lighten-1"},
+        {text: 'Learned', value: 4, color: "green lighten-1"}
       ],
       newSongId: null,
       openedSong: null,
+      deletedSongId: null,
       countOpen: 0
     }),
     methods: {
@@ -43,6 +44,9 @@ import EditSongForm from '@/components/EditSongForm.vue';
       onOpenSong(song) {
         this.openedSong = song
         this.countOpen += 1
+      },
+      onDeleteSong(songId) {
+        this.deletedSongId = songId
       }
     }
   }

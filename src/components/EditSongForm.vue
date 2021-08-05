@@ -1,4 +1,5 @@
 <template>
+<div>
     <v-dialog
       v-model="dialog"
       persistent
@@ -50,6 +51,7 @@
           <small>*indicates required field</small>
         </v-card-text>
         <v-card-actions>
+          <delete-dialog @deleteSong="onDeleteSong" :id="id" :title="title" :artist="artist"></delete-dialog>
           <v-spacer></v-spacer>
           <v-btn
             color="blue darken-2"
@@ -69,11 +71,15 @@
         </v-card-actions>
       </v-card>
     </v-dialog>
+</div>
 </template>
 
 <script>
+import DeleteDialog from '@/components/DeleteDialog.vue'
+
   export default {
     name: 'EditSongForm',
+    components: {DeleteDialog},
     props: {
       statuses: Array,
       song: Object,
@@ -84,6 +90,7 @@
       dialog: false,
       title: '',
       artist: '',
+      id: '',
       status: null,
       titleRules: [
         v => !!v || 'Title is required',
@@ -126,13 +133,18 @@
 
           }
         }
+      },
+      onDeleteSong(id) {
+        this.dialog = false
+        this.$emit('deleteSong', id)
       }
+
     },
     watch: {
       async song(val) {
         // const song = await this.$store.dispatch('fetchSongById', id.id)
-        const {artist, title, status} = val
-
+        const {id, artist, title, status} = val
+        this.id = id
         this.artist = artist
         this.title = title
         this.status = status
