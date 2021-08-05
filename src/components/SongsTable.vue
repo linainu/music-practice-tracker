@@ -3,7 +3,36 @@
    <div v-if="loading">Loading...</div>
    <div v-else>
     <div class="text-end mb-2">
-    <v-menu offset-y>
+    
+    <v-row>
+      <v-col
+      cols="12"
+      sm="6"
+      lg="4"
+      md="4">
+      <v-btn
+        text
+        icon
+        color="teal darken-2"
+        class="float-left"
+        @click="searchOpen = !searchOpen; search=''"
+      >
+      <v-icon>{{ searchIcon }}</v-icon>
+      </v-btn>
+    <v-text-field
+        v-if="searchOpen"
+        v-model="search"
+        append-icon="mdi-magnify"
+        label="Search"
+        single-line
+        hide-details
+        color="teal darken-2"
+        class="search-input"
+    >
+    </v-text-field>
+    </v-col>
+    <v-col>
+      <v-menu offset-y>
       <template v-slot:activator="{ on, attrs }">
         <v-btn
           color="teal darken-2"
@@ -37,9 +66,13 @@
         </v-list-item-group>
       </v-list>
     </v-menu>
+    </v-col>
+    </v-row>
+    
     </div>
 
     <v-row>
+    
     <v-col>
     <div :class="{hide: !isSorted}" class="text-end">
       <v-btn
@@ -62,8 +95,6 @@
     </div>
     </v-col>
     </v-row>
-    
-    
 
     <v-simple-table>
     <template v-slot:default>
@@ -87,7 +118,7 @@
       </thead>
       <tbody>
         <tr
-          v-for="song in songs"
+          v-for="song in filteredList"
           :key="song.id"
         >
           <td>
@@ -157,12 +188,21 @@
       isSorted: false,
       ascOrder: true,
       sortTitle: '',
-      soerField: '',
-      search: ''
+      sortField: '',
+      search: '',
+      searchOpen: false
     }),
     computed: {
       arrow() {
         return this.ascOrder ? 'mdi-arrow-up' : 'mdi-arrow-down'
+      },
+      filteredList() {
+        return this.songs.filter(item => {
+          return item.title.toLowerCase().includes(this.search.toLowerCase()) || item.artist.toLowerCase().includes(this.search.toLowerCase())
+        })
+      },
+      searchIcon() {
+        return this.searchOpen ? 'mdi-close' : 'mdi-magnify'
       }
     },
 
@@ -214,11 +254,14 @@
         this.songs.unshift(song)
       },
       selectedSort(idx) {
-        const sortOpt = this.sortOptions[idx]
-        this.sortTitle = sortOpt.title
-        this.sortField = sortOpt.field
-        this.sortItems(this.songs, this.sortField, this.ascOrder)
-        this.isSorted = true
+        if (idx !== null) {
+          const sortOpt = this.sortOptions[idx]
+          console.log(sortOpt)
+          this.sortTitle = sortOpt.title
+          this.sortField = sortOpt.field
+          this.sortItems(this.songs, this.sortField, this.ascOrder)
+          this.isSorted = true
+        }
       },
 
 
@@ -243,19 +286,12 @@ td {
 .hide {
   visibility: hidden;
 }
-/* .v-list-item__title {
-  font-size: .85rem;
-  
-}
-.v-list-item__icon {
- margin-right: 16px !important;
-} */
-
-/* .v-avatar--left {
-  margin-right: 0 !important;
-} */
 
 table .v-input {
   font-size: 14px;
+}
+
+.search-input {
+  padding-top: 0px !important;
 }
 </style>
