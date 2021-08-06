@@ -4,20 +4,17 @@
       persistent
       max-width="600px"
     >
-      <template v-slot:activator="{ on, attrs }">
-            <v-fab-transition>
+      <template v-slot:activator="{ on }">
               <v-btn
                 color="teal darken-2 fixed-button"
                 dark
                 fab
                 large
                 :style="{left: '50%', transform:'translateX(-50%)'}"
-                v-bind="attrs"
                 v-on="on"
               >
                 <v-icon>mdi-plus</v-icon>
               </v-btn>
-            </v-fab-transition>
       </template>
       <v-card>
         <v-card-title>

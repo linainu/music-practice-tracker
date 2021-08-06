@@ -16,6 +16,7 @@
             v-for="(item, i) in items"
             :key="i"
             :to="item.link"
+            color="teal darken-2"
           >
             <v-list-item-icon>
               <v-icon v-text="item.icon"></v-icon>

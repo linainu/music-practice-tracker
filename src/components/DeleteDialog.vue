@@ -3,11 +3,10 @@
       v-model="dialog"
       max-width="500px"
     >
-      <template v-slot:activator="{ on, attrs }">
+      <template v-slot:activator="{ on }">
         <v-btn
           color="red lighten-1"
           text
-          v-bind="attrs"
           v-on="on"
         >
           Delete

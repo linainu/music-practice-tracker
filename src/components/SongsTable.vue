@@ -2,13 +2,10 @@
 <v-container>
    <div v-if="loading">Loading...</div>
    <div v-else>
-    
-    
     <v-row>
       <v-col
       cols="12"
       sm="6"
-      lg="4"
       md="4">
       <v-btn
         text
@@ -31,14 +28,14 @@
     >
     </v-text-field>
     </v-col>
-    <v-col>
+    <v-col
+    >
       <div class="text-end mb-2">
       <v-menu offset-y>
-      <template v-slot:activator="{ on, attrs }">
+      <template v-slot:activator="{ on }">
         <v-btn
           color="teal darken-2"
           text
-          v-bind="attrs"
           v-on="on"
         >
         <v-icon
@@ -278,6 +275,7 @@
 .select-status {
   width: 180px;
 }
+
 
 td {
   padding: 8px 16px !important;
