@@ -2,6 +2,7 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 import auth from './auth'
 import songs from './songs'
+import user from './user'
 
 Vue.use(Vuex)
 
@@ -20,7 +21,7 @@ export default new Vuex.Store({
   actions: {
   },
   modules: {
-    auth, songs
+    auth, songs, user
   },
   getters: {
     error: s => s.error

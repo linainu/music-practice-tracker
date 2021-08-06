@@ -10,13 +10,12 @@
       >
         <v-list-item-group
           v-model="group"
-          active-class=""
         >
           <v-list-item 
             v-for="(item, i) in items"
             :key="i"
             :to="item.link"
-            color="teal darken-2"
+            active-class="teal--text text--darken-2"
           >
             <v-list-item-icon>
               <v-icon v-text="item.icon"></v-icon>
@@ -45,7 +44,7 @@ export default {
     group: 0,
     items: [
         {text: 'Songs', icon: 'mdi-music', link: '/'},
-        {text: 'Playlists', icon: 'mdi-folder-music-outline', link: '/playlists'},
+        // {text: 'Playlists', icon: 'mdi-folder-music-outline', link: '/playlists'},
         {text: 'Account', icon: 'mdi-account-outline', link: '/account'},
         ]
   }),

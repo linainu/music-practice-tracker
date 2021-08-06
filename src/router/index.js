@@ -12,6 +12,12 @@ const routes = [
     component: () => import('../views/Songs.vue') 
   },
   {
+    path: '/account',
+    name: 'Account',
+    meta: {layout: 'main', auth: true},
+    component: () => import('../views/Account.vue') 
+  },
+  {
     path: '/register',
     name: 'Register',
     meta: {layout: 'empty'},

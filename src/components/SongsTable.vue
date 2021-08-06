@@ -272,8 +272,6 @@
 
         this.songs[idx].title = val
       }
-
-
     },
   }
 </script>
@@ -288,7 +286,7 @@ td {
   padding: 8px 16px !important;
 }
 
-.v-input__control {
+table .v-input__control {
   flex-direction: row !important;
   flex-wrap: nowrap !important;
 }
