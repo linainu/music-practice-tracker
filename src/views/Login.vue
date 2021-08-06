@@ -31,8 +31,13 @@
         color="teal darken-2 white--text"
         @click="validate"
         >
-        Sign In
+        Log In
         </v-btn>
+
+        <div class="text-center">
+          Don't have an account?
+          <router-link to="/register">Create</router-link>
+        </div>
       </v-form>
   </v-card-text>
 </v-card>
