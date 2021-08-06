@@ -1,5 +1,13 @@
 <template>
   <v-container>
+      <v-snackbar
+        v-model="snackbar"
+        :timeout="timeout"
+        top
+        right
+      >
+        {{ msgText }}
+      </v-snackbar>
     <v-row no-gutters justify="center">
       <v-col
        lg="8"
@@ -8,12 +16,12 @@
       <div class="pl-3 mb-3">
         <h1>Songs</h1>
       </div>
-      <songs-table :statuses=statuses :newSongId=newSongId :deletedSongId="deletedSongId" @openSong="onOpenSong"></songs-table>
+      <songs-table :statuses=statuses :newSongId=newSongId :deletedSongId="deletedSongId" :editedSongData="editedSongData" @openSong="onOpenSong"></songs-table>
       <add-song-form :statuses=statuses @addSong="onAddSong"></add-song-form>
     </v-col>
     </v-row>
 
-    <edit-song-form :countOpen=countOpen :statuses=statuses :song=openedSong @deleteSong="onDeleteSong"></edit-song-form>
+    <edit-song-form :countOpen=countOpen :statuses=statuses :song=openedSong @deleteSong="onDeleteSong" @editSong="onEditSong"></edit-song-form>
   </v-container>
 </template>
 
@@ -35,11 +43,22 @@ import EditSongForm from '@/components/EditSongForm.vue';
       newSongId: null,
       openedSong: null,
       deletedSongId: null,
-      countOpen: 0
+      editedSongData: {
+        id: '',
+        artist: '',
+        title: '',
+        status: ''
+      },
+      countOpen: 0,
+      timeout: 2000,
+      snackbar: false,
+      msgText: ''
     }),
     methods: {
       onAddSong(songId) {
         this.newSongId = songId
+        this.msgText = 'The song has been added'
+        this.snackbar = true
       },
       onOpenSong(song) {
         this.openedSong = song
@@ -47,6 +66,25 @@ import EditSongForm from '@/components/EditSongForm.vue';
       },
       onDeleteSong(songId) {
         this.deletedSongId = songId
+        this.msgText = 'The song has been deleted'
+        this.snackbar = true
+      },
+      onEditSong(data) {
+        this.editedSongData.id = data.id
+        if (data.artist !== undefined) {
+          this.editedSongData.artist = data.artist
+        }
+
+        if (data.title !== undefined) {
+          this.editedSongData.title = data.title
+        }
+
+        if (data.status !== undefined) {
+          this.editedSongData.status = data.status
+        }
+        console.log(this.editedSongData)
+        this.msgText = 'The song has been updated'
+        this.snackbar = true
       }
     }
   }

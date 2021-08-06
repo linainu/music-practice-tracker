@@ -4,10 +4,12 @@ import router from './router'
 import store from './store'
 import vuetify from './plugins/vuetify'
 import firebase from 'firebase/app'
-
+import Loader from '@/components/Loader'
 import dateFilter from '@/filters/date.filter'
 
 Vue.filter('date', dateFilter)
+
+Vue.component('Loader', Loader)
 
 Vue.config.productionTip = false
 

@@ -110,23 +110,34 @@ import DeleteDialog from '@/components/DeleteDialog.vue'
     methods: {
       async validate() {
         if(this.$refs.form.validate()) {
+          let updated = false
+          const updatedData = {id: this.song.id}
           try {
             if (this.artist !== this.song.artist) {
               const data = {id: this.song.id, artist: this.artist}
               await this.$store.dispatch('updateSongArtist', data)
+              updated = true
+              updatedData.artist = this.artist
+              
             }
 
             if (this.title !== this.song.title) {
               const data = {id: this.song.id, title: this.title}
               await this.$store.dispatch('updateSongTitle', data)
+              updated = true
+              updatedData.title = this.title
             }
 
             if (this.status !== this.song.status) {
               const data = {id: this.song.id, status: this.status}
               await this.$store.dispatch('updateSongStatus', data)
+              updated = true
+              updatedData.status = this.status
             }
 
             this.dialog = false
+            if (updated) this.$emit('editSong', updatedData)
+            
             
             
           } catch(e) {

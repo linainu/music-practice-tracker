@@ -1,6 +1,6 @@
 <template>
 <v-container>
-   <div v-if="loading">Loading...</div>
+   <Loader v-if="loading">Loading...</Loader>
    <div v-else>
     <v-row>
       <v-col
@@ -170,7 +170,8 @@
     props: {
       statuses: Array,
       newSongId: String,
-      deletedSongId: String
+      deletedSongId: String,
+      editedSongData: Object
     },
     data: () => ({
       songs: [],
@@ -264,6 +265,12 @@
       deletedSongId(id) {
         const idx = this.songs.findIndex(el => el.id == id)
         this.songs.splice(idx, 1)
+      },
+
+      'editedSongData.title'(val) {
+        const idx = this.songs.findIndex(el => el.id == this.editedSongData.id)
+
+        this.songs[idx].title = val
       }
 
 

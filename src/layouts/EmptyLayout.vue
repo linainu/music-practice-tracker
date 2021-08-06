@@ -16,7 +16,7 @@
 export default {
     name: 'EmptyLayout',
     data: () => ({
-      timeout: 5000,
+      timeout: 2000,
       snackbar: false,
     }),
     computed: {
