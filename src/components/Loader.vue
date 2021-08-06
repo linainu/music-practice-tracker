@@ -1,7 +1,7 @@
 <template>
-<div class="text-center">
+  <div class="text-center">
     <div class="lds-dual-ring"></div>
-</div>
+  </div>
 </template>
 
 <style scoped>
@@ -11,7 +11,7 @@
   height: 80px;
 }
 .lds-dual-ring:after {
-  content: " ";
+  content: ' ';
   display: block;
   width: 64px;
   height: 64px;

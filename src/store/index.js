@@ -16,14 +16,15 @@ export default new Vuex.Store({
     },
     clearError(state) {
       state.error = null
-  }
+    }
   },
-  actions: {
-  },
+  actions: {},
   modules: {
-    auth, songs, user
+    auth,
+    songs,
+    user
   },
   getters: {
     error: s => s.error
   }
-  })
+})

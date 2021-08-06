@@ -1,6 +1,6 @@
 <template>
   <component :is="layout">
-      <router-view />
+    <router-view />
   </component>
 </template>
 
@@ -9,22 +9,15 @@ import EmptyLayout from '@/layouts/EmptyLayout'
 import MainLayout from '@/layouts/MainLayout'
 
 export default {
-  data: () => ({
-    timeout: 5000,
-    snackbar: false,
-  }),
   computed: {
     layout() {
       return (this.$route.meta.layout || 'Empty') + 'Layout'
-    },
+    }
   },
 
   components: {
-    EmptyLayout, MainLayout
-  },
+    EmptyLayout,
+    MainLayout
+  }
 }
 </script>
-
-<style>
-@import './assets/index.scss';
-</style>

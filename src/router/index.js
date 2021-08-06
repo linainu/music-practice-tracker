@@ -8,27 +8,27 @@ const routes = [
   {
     path: '/',
     name: 'Songs',
-    meta: {layout: 'main', auth: true},
-    component: () => import('../views/Songs.vue') 
+    meta: { layout: 'main', auth: true },
+    component: () => import('../views/Songs.vue')
   },
   {
     path: '/account',
     name: 'Account',
-    meta: {layout: 'main', auth: true},
-    component: () => import('../views/Account.vue') 
+    meta: { layout: 'main', auth: true },
+    component: () => import('../views/Account.vue')
   },
   {
     path: '/register',
     name: 'Register',
-    meta: {layout: 'empty'},
-    component: () => import('../views/Register.vue') 
+    meta: { layout: 'empty' },
+    component: () => import('../views/Register.vue')
   },
   {
     path: '/login',
     name: 'Login',
-    meta: {layout: 'empty'},
-    component: () => import('../views/Login.vue') 
-  },
+    meta: { layout: 'empty' },
+    component: () => import('../views/Login.vue')
+  }
 ]
 
 const router = new VueRouter({
