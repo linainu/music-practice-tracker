@@ -2,151 +2,161 @@
   <v-container>
     <Loader v-if="loading">Loading...</Loader>
     <div v-else>
-      <v-row>
-        <v-col cols="12" sm="6" md="4">
-          <v-btn
-            text
-            icon
-            color="teal darken-2"
-            class="float-left"
-            @click="
-              searchOpen = !searchOpen
-              search = ''
-            "
-          >
-            <v-icon>{{ searchIcon }}</v-icon>
-          </v-btn>
-          <v-text-field
-            v-if="searchOpen"
-            v-model="search"
-            append-icon="mdi-magnify"
-            label="Search"
-            single-line
-            hide-details
-            color="teal darken-2"
-            class="search-input"
-          >
-          </v-text-field>
-        </v-col>
-        <v-col>
-          <div class="text-end mb-2">
-            <v-menu offset-y>
-              <template v-slot:activator="{ on }">
-                <v-btn color="teal darken-2" text v-on="on">
-                  <v-icon dark left>
-                    mdi-arrow-up-down
-                  </v-icon>
-                  Sort
-                </v-btn>
-              </template>
-              <v-list dense>
-                <v-list-item-group v-model="selectedSort" color="teal darken-2">
-                  <v-list-item
-                    v-for="(item, index) in sortOptions"
-                    :key="index"
-                  >
-                    <v-list-item-icon>
-                      <v-icon v-text="item.icon"></v-icon>
-                    </v-list-item-icon>
-                    <v-list-item-title v-text="item.title"></v-list-item-title>
-                  </v-list-item>
-                </v-list-item-group>
-              </v-list>
-            </v-menu>
-          </div>
-        </v-col>
-      </v-row>
-
-      <v-divider></v-divider>
-      <v-row>
-        <v-col>
-          <div :class="{ hide: !isSorted }" class="text-end">
-            <v-btn text icon color="teal darken-2" @click="changeOrder">
-              <v-icon>{{ arrow }}</v-icon>
-            </v-btn>
-            <v-chip
-              class="ma-2"
-              close
-              outlined
+      <div v-if="songs.length == 0" class="text-center">
+        You didn't add any songs
+      </div>
+      <div v-else>
+        <v-row>
+          <v-col cols="12" sm="6" md="4">
+            <v-btn
+              text
+              icon
               color="teal darken-2"
-              @click:close="close"
+              class="float-left"
+              @click="
+                searchOpen = !searchOpen
+                search = ''
+              "
             >
-              {{ sortTitle }}
-            </v-chip>
-          </div>
-        </v-col>
-      </v-row>
+              <v-icon>{{ searchIcon }}</v-icon>
+            </v-btn>
+            <v-text-field
+              v-if="searchOpen"
+              v-model="search"
+              append-icon="mdi-magnify"
+              label="Search"
+              single-line
+              hide-details
+              color="teal darken-2"
+              class="search-input"
+            >
+            </v-text-field>
+          </v-col>
+          <v-col>
+            <div class="text-end mb-2">
+              <v-menu offset-y>
+                <template v-slot:activator="{ on }">
+                  <v-btn color="teal darken-2" text v-on="on">
+                    <v-icon dark left>
+                      mdi-arrow-up-down
+                    </v-icon>
+                    Sort
+                  </v-btn>
+                </template>
+                <v-list dense>
+                  <v-list-item-group
+                    v-model="selectedSort"
+                    color="teal darken-2"
+                  >
+                    <v-list-item
+                      v-for="(item, index) in sortOptions"
+                      :key="index"
+                    >
+                      <v-list-item-icon>
+                        <v-icon v-text="item.icon"></v-icon>
+                      </v-list-item-icon>
+                      <v-list-item-title
+                        v-text="item.title"
+                      ></v-list-item-title>
+                    </v-list-item>
+                  </v-list-item-group>
+                </v-list>
+              </v-menu>
+            </div>
+          </v-col>
+        </v-row>
 
-      <v-simple-table>
-        <template v-slot:default>
-          <thead>
-            <tr>
-              <th></th>
-              <th class="text-left">
-                Artist
-              </th>
-              <th class="text-left">
-                Song
-              </th>
-              <th class="text-left">
-                Status
-              </th>
-              <th class="text-left">
-                Last Practiced
-              </th>
-              <th></th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr v-for="song in filteredList" :key="song.id">
-              <td>
-                <v-btn
-                  icon
-                  class="text--lighten-1"
-                  :class="{
-                    'red--text': song.favorite,
-                    'grey--text': !song.favorite
-                  }"
-                  @click="favorite(song.id)"
-                >
-                  <v-icon>mdi-heart</v-icon>
-                </v-btn>
-              </td>
-              <td>{{ song.artist }}</td>
-              <td>
-                <a href="#" @click.prevent="$emit('openSong', song)">{{
-                  song.title
-                }}</a>
-              </td>
-              <td>
-                <v-select
-                  v-model="song.status"
-                  :items="statuses"
-                  item-text="text"
-                  item-value="value"
-                  label="Status"
-                  solo
-                  dense
-                  class="select-status"
-                  @change="changeStatus($event, song.id)"
-                ></v-select>
-              </td>
-              <td>{{ song.last_practiced | date }}</td>
-              <td>
-                <v-btn
-                  text
-                  icon
-                  large
-                  color="teal darken-2"
-                  @click="updateLastPracticedDate(song.id)"
-                >
-                  <v-icon>mdi-update</v-icon>
-                </v-btn>
-              </td>
-            </tr>
-          </tbody>
-        </template>
-      </v-simple-table>
+        <v-divider></v-divider>
+        <v-row>
+          <v-col>
+            <div :class="{ hide: !isSorted }" class="text-end">
+              <v-btn text icon color="teal darken-2" @click="changeOrder">
+                <v-icon>{{ arrow }}</v-icon>
+              </v-btn>
+              <v-chip
+                class="ma-2"
+                close
+                outlined
+                color="teal darken-2"
+                @click:close="close"
+              >
+                {{ sortTitle }}
+              </v-chip>
+            </div>
+          </v-col>
+        </v-row>
+
+        <v-simple-table>
+          <template v-slot:default>
+            <thead>
+              <tr>
+                <th></th>
+                <th class="text-left">
+                  Artist
+                </th>
+                <th class="text-left">
+                  Song
+                </th>
+                <th class="text-left">
+                  Status
+                </th>
+                <th class="text-left">
+                  Last Practiced
+                </th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr v-for="song in filteredList" :key="song.id">
+                <td>
+                  <v-btn
+                    icon
+                    class="text--lighten-1"
+                    :class="{
+                      'red--text': song.favorite,
+                      'grey--text': !song.favorite
+                    }"
+                    @click="favorite(song.id)"
+                  >
+                    <v-icon>mdi-heart</v-icon>
+                  </v-btn>
+                </td>
+                <td>{{ song.artist }}</td>
+                <td>
+                  <a href="#" @click.prevent="$emit('openSong', song)">{{
+                    song.title
+                  }}</a>
+                </td>
+                <td>
+                  <v-select
+                    v-model="song.status"
+                    :items="statuses"
+                    item-text="text"
+                    item-value="value"
+                    label="Status"
+                    solo
+                    dense
+                    class="select-status"
+                    @change="changeStatus($event, song.id)"
+                  ></v-select>
+                </td>
+                <td>{{ song.last_practiced | date }}</td>
+                <td>
+                  <v-btn
+                    text
+                    icon
+                    large
+                    color="teal darken-2"
+                    @click="updateLastPracticedDate(song.id)"
+                  >
+                    <v-icon>mdi-update</v-icon>
+                  </v-btn>
+                </td>
+              </tr>
+            </tbody>
+          </template>
+        </v-simple-table>
+      </div>
     </div>
   </v-container>
 </template>
@@ -207,7 +217,7 @@ export default {
   },
 
   async mounted() {
-    this.songs = await this.$store.dispatch('fetchSongs')
+    // this.songs = await this.$store.dispatch('fetchSongs')
     this.loading = false
   },
 
