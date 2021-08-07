@@ -217,7 +217,7 @@ export default {
   },
 
   async mounted() {
-    // this.songs = await this.$store.dispatch('fetchSongs')
+    this.songs = await this.$store.dispatch('fetchSongs')
     this.loading = false
   },
 
