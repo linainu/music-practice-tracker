@@ -10,7 +10,7 @@
         </div>
         <songs-table
           :statuses="statuses"
-          :newSongId="newSongId"
+          :newSong="newSong"
           :deletedSongId="deletedSongId"
           :editedSongData="editedSongData"
           @openSong="onOpenSong"
@@ -47,7 +47,7 @@ export default {
       { text: 'Kind of Know', value: 3, color: 'yellow lighten-1' },
       { text: 'Learned', value: 4, color: 'green lighten-1' }
     ],
-    newSongId: null,
+    newSong: null,
     openedSong: null,
     deletedSongId: null,
     editedSongData: {
@@ -62,8 +62,8 @@ export default {
     msgText: ''
   }),
   methods: {
-    onAddSong(songId) {
-      this.newSongId = songId
+    onAddSong(song) {
+      this.newSong = song
       this.msgText = 'The song has been added'
       this.snackbar = true
     },

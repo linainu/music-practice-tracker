@@ -165,7 +165,7 @@
 export default {
   props: {
     statuses: Array,
-    newSongId: String,
+    newSong: Object,
     deletedSongId: String,
     editedSongData: Object
   },
@@ -229,7 +229,6 @@ export default {
       const date = new Date()
       const idx = this.songs.findIndex(el => el.id == id)
       this.songs[idx].last_practiced = date
-      console.log(this.songs[idx].last_practiced)
       await this.$store.dispatch('updateLastPracticedDate', { id, date })
     },
     async favorite(id) {
@@ -261,9 +260,8 @@ export default {
   },
 
   watch: {
-    async newSongId(id) {
-      const song = await this.$store.dispatch('fetchSongById', id)
-      this.songs.unshift(song)
+    newSong(val) {
+      this.songs.unshift(val)
     },
     selectedSort(idx) {
       if (idx !== null) {
@@ -281,7 +279,6 @@ export default {
 
     'editedSongData.title'(val) {
       const idx = this.songs.findIndex(el => el.id == this.editedSongData.id)
-
       this.songs[idx].title = val
     },
 

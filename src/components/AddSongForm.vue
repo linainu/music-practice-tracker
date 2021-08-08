@@ -78,17 +78,19 @@ export default {
   methods: {
     async validate() {
       if (this.$refs.form.validate()) {
-        const formData = {
+        const song = {
           title: this.title,
           artist: this.artist,
           status: this.status
         }
 
         try {
-          const id = await this.$store.dispatch('createSong', formData)
+          const id = await this.$store.dispatch('createSong', song)
           this.$refs.form.reset()
+          song.id = id
+          song.last_practiced = null
+          this.$emit('addSong', song)
           this.dialog = false
-          this.$emit('addSong', id)
         } catch (e) {}
       }
     }

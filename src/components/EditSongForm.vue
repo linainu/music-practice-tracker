@@ -67,7 +67,7 @@ export default {
     title: '',
     artist: '',
     id: '',
-    titleRules: [v => !!v || 'Title is required'],
+    titleRules: [v => !!v || 'Title is required']
   }),
   computed: {
     songTitle() {
