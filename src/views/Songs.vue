@@ -86,10 +86,6 @@ export default {
         this.editedSongData.title = data.title
       }
 
-      if (data.status !== undefined) {
-        this.editedSongData.status = data.status
-      }
-      console.log(this.editedSongData)
       this.msgText = 'The song has been updated'
       this.snackbar = true
     }

@@ -229,6 +229,7 @@ export default {
       const date = new Date()
       const idx = this.songs.findIndex(el => el.id == id)
       this.songs[idx].last_practiced = date
+      console.log(this.songs[idx].last_practiced)
       await this.$store.dispatch('updateLastPracticedDate', { id, date })
     },
     async favorite(id) {
@@ -282,6 +283,11 @@ export default {
       const idx = this.songs.findIndex(el => el.id == this.editedSongData.id)
 
       this.songs[idx].title = val
+    },
+
+    'editedSongData.artist'(val) {
+      const idx = this.songs.findIndex(el => el.id == this.editedSongData.id)
+      this.songs[idx].artist = val
     }
   }
 }

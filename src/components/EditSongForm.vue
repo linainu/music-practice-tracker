@@ -20,17 +20,6 @@
                     :rules="titleRules"
                   ></v-text-field>
                 </v-col>
-                <v-col cols="12" sm="6">
-                  <v-select
-                    v-model="status"
-                    :items="statuses"
-                    item-text="text"
-                    item-value="value"
-                    label="Status*"
-                    required
-                    :rules="statusRules"
-                  ></v-select>
-                </v-col>
               </v-row>
             </v-form>
           </v-container>
@@ -78,9 +67,7 @@ export default {
     title: '',
     artist: '',
     id: '',
-    status: null,
     titleRules: [v => !!v || 'Title is required'],
-    statusRules: [v => !!v || 'Status is required']
   }),
   computed: {
     songTitle() {
@@ -109,13 +96,6 @@ export default {
             updatedData.title = this.title
           }
 
-          if (this.status !== this.song.status) {
-            const data = { id: this.song.id, status: this.status }
-            await this.$store.dispatch('updateSongStatus', data)
-            updated = true
-            updatedData.status = this.status
-          }
-
           this.dialog = false
           if (updated) this.$emit('editSong', updatedData)
         } catch (e) {}
@@ -128,11 +108,10 @@ export default {
   },
   watch: {
     async song(val) {
-      const { id, artist, title, status } = val
+      const { id, artist, title } = val
       this.id = id
       this.artist = artist
       this.title = title
-      this.status = status
     },
     countOpen() {
       this.dialog = true
