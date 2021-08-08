@@ -30,7 +30,7 @@
           Log In
         </v-btn>
 
-        <div class="text-center">
+        <div class="text-center mt-4">
           Don't have an account?
           <router-link to="/register">Create</router-link>
         </div>

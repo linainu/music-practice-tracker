@@ -39,7 +39,7 @@
           Sign Up
         </v-btn>
 
-        <div class="text-center">
+        <div class="text-center mt-4">
           Already have an account?
           <router-link to="/login">Login</router-link>
         </div>
