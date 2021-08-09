@@ -89,6 +89,7 @@ export default {
           this.$refs.form.reset()
           song.id = id
           song.last_practiced = null
+          song.favorite = false
           this.$emit('addSong', song)
           this.dialog = false
         } catch (e) {}
